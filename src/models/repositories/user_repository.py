@@ -1,7 +1,7 @@
 from sqlite3 import Connection
+from src.models.interfaces.user_repository import UserRepositoryInterface
 
-
-class UserRepository:
+class UserRepository(UserRepositoryInterface):
     def __init__(self, connection: Connection) -> None:
         self.__connection = connection
 
@@ -16,7 +16,7 @@ class UserRepository:
         )
         self.__connection.commit()
 
-    def edit_balance(self, user_id: int, new_balance:float) -> None:
+    def edit_balance(self, user_id: int, new_balance: float) -> None:
         cursor = self.__connection.cursor()
         cursor.execute(
             '''
@@ -25,8 +25,8 @@ class UserRepository:
             WHERE id = ?           
             ''', (new_balance, user_id))
         self.__connection.commit()
-        
-    def get_user_by_username(self, username: str):
+
+    def get_user_by_username(self, username: str) -> tuple[int, str, str]:
         cursor = self.__connection.cursor()
         cursor.execute(
             '''
@@ -36,4 +36,3 @@ class UserRepository:
             ''', (username,))
         user = cursor.fetchone()
         return user
-        
