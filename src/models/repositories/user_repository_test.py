@@ -19,7 +19,7 @@ def test_registry_user():
     password = "1234!abc"
     mock_connection = MockConnection()
     repo = UserRepository(mock_connection)
-    repo.registry_user(username, password)
+    repo.register_user(username, password)
 
     cursor = mock_connection.cursor.return_value
     print()
