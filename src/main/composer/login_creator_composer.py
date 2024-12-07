@@ -4,7 +4,7 @@ from src.controllers.login_creator import LoginCreator
 from src.views.login_creator_view import LoginCreatorView
 
 
-def balance_editor_composer():
+def login_creator_composer():
     connection = db_connection_handler.get_connection()
     model = UserRepository(connection)
     controller = LoginCreator(model)

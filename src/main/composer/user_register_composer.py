@@ -4,7 +4,7 @@ from src.controllers.user_register import UserRegister
 from src.views.user_register_view import UserRegisterView
 
 
-def balance_editor_composer():
+def user_register_composer():
     connection = db_connection_handler.get_connection()
     model = UserRepository(connection)
     controller = UserRegister(model)
