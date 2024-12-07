@@ -1,0 +1,28 @@
+from pytest import raises
+from src.drivers.password_handler import PasswordHandler
+from .login_creator import LoginCreator
+
+username = "my-username"
+password = "my-password"
+hashed_password = PasswordHandler().encrypt_password(password)
+
+
+class MockRepository:
+    def get_user_by_username(self, username):
+        return (10, username, hashed_password)
+
+
+def test_create():
+    login_creator = LoginCreator(MockRepository())
+    response = login_creator.create(username, password)
+
+    assert response["access"] == True
+    assert response["username"] == username
+    assert response["token"] is not None
+
+
+def test_create_with_wrong_password():
+    login_creator = LoginCreator(MockRepository())
+
+    with raises(Exception):
+        response = login_creator.create(username, password[:-1])
